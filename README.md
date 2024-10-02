@@ -2,15 +2,19 @@
 
 ## Domain Proyek
 Domain : Ekonomi, Keuangan.
-Saat kita melihat informasi tentang berapa harga saham, ada beberapa hal yang perlu kita pikirkan. Terkadang, sulit untuk menebak berapa harga di masa mendatang karena harga dapat naik dan turun drastis, dan hal-hal lain dapat mengubah seberapa besar keinginan orang untuk membeli atau menjual saham. Oleh sebab itu mengapa saya membahas masalah ini dan bagaimana kita dapat mencoba menyelesaikannya.
 
-Terkadang, harga saham Apple naik dan turun, sama seperti perusahaan teknologi lainnya. Penting untuk mengetahui mengapa hal ini terjadi sehingga kita dapat memahami bagaimana harga dapat berubah di masa mendatang. Dengan cara ini, orang yang membeli dan menjual saham dapat membuat pilihan yang lebih cerdas.
+Masalah yang Dihadapi:
+Kenaikan harga saham sering kali sulit diprediksi karena dipengaruhi oleh berbagai faktor seperti kondisi pasar, berita keuangan, serta sentimen investor. Ketidakpastian ini membuat keputusan pembelian dan penjualan saham menjadi berisiko, terutama untuk investor yang kurang memahami faktor yang mempengaruhi pergerakan harga. Oleh karena itu, diperlukan model prediksi yang dapat membantu mengurangi ketidakpastian dan memberikan gambaran yang lebih akurat mengenai potensi pergerakan harga saham di masa depan.
 
-Berita tentang keuangan, pendapatan perusahaan, dan aturan baru dari pemerintah dapat mengubah berapa harga saham. Jika orang memahami bagaimana hal-hal ini saling terkait, mereka dapat menebak dengan lebih baik apakah harga saham akan naik atau turun.
+Memprediksi harga saham adalah masalah penting dalam dunia keuangan karena volatilitas pasar saham dapat menyebabkan kerugian yang signifikan. Dengan meningkatnya ketergantungan pada teknologi dan data, banyak investor mencari solusi yang dapat memberikan pengetahuan lebih baik terhadap pergerakan harga saham. Peningkatan akurasi prediksi saham juga dapat membantu investor mengambil keputusan yang lebih cerdas, meminimalisir risiko, dan meningkatkan potensi keuntungan.
 
-Pemodelan prediktif seperti mencoba menebak apa yang akan terjadi pada harga saham di masa mendatang. Untuk membuat tebakan ini, kita melihat informasi dari masa lalu, seperti mempelajari pekerjaan rumah lama untuk mendapatkan hasil yang lebih baik pada ujian baru. Setelah kita membuat tebakan, kita memeriksanya dengan informasi baru yang belum pernah kita lihat sebelumnya untuk melihat apakah tebakan kita benar.
+Salah satu cara yang efektif untuk memecahkan masalah ini adalah dengan menggunakan pendekatan machine learning. Model machine learning ini memiliki kemampuan untuk menganalisis pola historis harga saham serta menggabungkan faktor-faktor eksternal, seperti berita keuangan dan sentimen publik, yang dapat mempengaruhi harga saham[1][2].
 
-Analisis Sentimen seperti pekerjaan detektif di mana kita melihat apa yang dikatakan orang-orang di berita dan di media sosial untuk mengetahui bagaimana perasaan mereka tentang berbagai hal. Ini membantu kita memahami apakah perasaan tersebut dapat mengubah harga saham, yang seperti bagian kecil dari perusahaan yang dapat dibeli atau dijual orang. Jadi, jika banyak orang senang dengan suatu perusahaan, harga sahamnya mungkin naik, dan jika mereka tidak senang, harga sahamnya mungkin turun.
+Pemodelan Prediktif: Model prediktif seperti Autoregressive Integrated Moving Average (ARIMA), Random Forest, dan Long Short-Term Memory (LSTM) terbukti mampu memberikan prediksi yang lebih akurat tentang harga saham di masa mendatang. Model ARIMA, misalnya, unggul dalam memprediksi data time-series seperti harga saham dengan menggunakan teknik validasi walk-forward yang mampu mengatasi masalah ketidakstabilan data pasar[1].
+
+Beberapa referensi yang dipakai adalah :
+###### 1. [Machine Learning for Stock Prediction by Different Models](https://www.atlantis-press.com/proceedings/icedbc-22/125983772)
+###### 2. [COMBINATION OF DEEP-LEARNING MODELS TO FORECAST STOCK PRICE OF AAPL AND TSLA](https://www.academia.edu/download/95974184/71_1655723854.pdf)
 
 ## Business Understanding
 ### 1. Problem Statements (Pernyataan Masalah)
@@ -31,6 +35,16 @@ Mengembangkan model prediktif yang dapat digunakan untuk memproyeksikan harga sa
 3. Menyediakan Rekomendasi Investasi
 Berdasarkan hasil analisis, memberikan rekomendasi investasi yang dapat membantu investor dalam pengambilan keputusan yang lebih baik terkait saham Apple.
 
+### 3. Solusi
+Untuk menyelesaikan masalah dan mendapatkan tujuan dalam proyek ini adalah :
+1. Menggunakan beberapa model untuk mencari tahu model mana yang paling baik untuk memprediksi saham, algoritma yang dipakai pada penelitian ini diantaranya :
+    - Linear Regression
+    - Random Forest
+    - ARIMA, dan
+    - LSTM
+2. Evaluasi yang digunakan untuk mengetahui performa terbaik pada model adalah :
+    - Mean Squared Error (MSE)
+    - R-squared (R²)
 
 ## Data Understanding
 
@@ -61,38 +75,46 @@ Untuk memahami data lebih lanjut, beberapa teknik eksplorasi dan visualisasi yan
 #### Visualisasi Data
 
 ##### a. Visualisasi Harga Penutupan
-Pada bagian ini, kita memuat dataset dan menampilkan grafik harga penutupan saham AAPL.
+Pada bagian ini, memuat dataset dan menampilkan grafik harga penutupan saham AAPL.
 ![Grafik Harga Penutupan Saham Apple](img/grafik%20penutupan.png)
 
 ##### b. Distribusi Volume Perdagangan
-Pada bagian ini, kita memuat dataset dan menampilkan grafik tren distribusi perdagangan saham AAPL.
+Pada bagian ini, memuat dataset dan menampilkan grafik tren distribusi perdagangan saham AAPL.
 ![Grafik Volume Perdagangan Saham Apple](img/grafik%20volume.png)
 
 ##### c. Moving Average
 menghitung dan memplot rata-rata bergerak 50 hari dan 200 hari untuk melihat tren jangka pendek dan jangka panjang. Rata-rata bergerak membantu mengidentifikasi arah tren dan mencegah kebingungan akibat fluktuasi jangka pendek. Jika rata-rata bergerak 50 hari melampaui rata-rata 200 hari, ini bisa menunjukkan potensi tren bullish.
 ![Grafik Rata-rata Pergerakan saham](img/movavg.png)
 
-## PRAPEMROSESAN DATA
-Pada tahap ini, kita melakukan praproses pada data, termasuk penggeseran data untuk membuat fitur dan label yang sesuai. Data kemudian dibagi menjadi set pelatihan dan pengujian.
+## Data Preparation
+Proses data preparation yang dilakukan dalam proyek ini adalah :
+1. Mengubah kolom 'Date' dari format objek ke format datetime untuk memastikan bahwa model memahami data time series
 ```
-# Preprocessing for machine learning models
-data_ml = data[['Close']]
-
-# Feature Engineering: Using previous days as features for regression models
+data['Date'] = pd.to_datetime(data['Date'])
+data.set_index('Date', inplace=True)
+```
+2. Pembuatan fitur baru dengan cara penggeseran harga penutupan (Close_shifted) untuk memberijan informasi historis yang relevan untuk model
+```
 data_ml['Close_shifted'] = data_ml['Close'].shift(1)
 data_ml.dropna(inplace=True)
-
-# Splitting the data into training and test sets
+```
+3. Membagi dataset untuk pelatihan dan pengujian diperlukan untuk memastikan model dilatih pada data yang sudah ditentukan dan tidak dipakai saat pengujian
+```
 train, test = train_test_split(data_ml, test_size=0.2, shuffle=False)
-
-# Separate features and labels
-X_train, y_train = train[['Close_shifted']], train['Close']
-X_test, y_test = test[['Close_shifted']], test['Close']
-
-# Scale data for machine learning models
+```
+4. Menggunakan MinMaxScaler untuk menormalisasi data agar semua fitur berada dalam rentang yang seragam
+```
 scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
+```
+5. Melakukan ttransformasi kedalam window time series dengan urutan 60 hari untuk LSTM agar model dapat mengenali tren
+```
+for i in range(60, len(train_scaled)):
+    X_lstm.append(train_scaled[i-60:i, 0])
+    y_lstm.append(train_scaled[i, 0])
+X_lstm, y_lstm = np.array(X_lstm), np.array(y_lstm)
+X_lstm = np.reshape(X_lstm, (X_lstm.shape[0], X_lstm.shape[1], 1))
 ```
 
 ## Modeling
@@ -177,9 +199,9 @@ Data yang digunakan (dalam hal ini adalah harga penutupan, train['Close']) perlu
 
 - Mendefinisikan Model ARIMA (model_arima = ARIMA(train['Close'], order=(1,1,3))) 
 Model ARIMA dibangun dengan parameter order yang terdiri dari tiga komponen:
-   -  p (AutoRegressive Order): Jumlah lag dari variabel dependen (dalam hal ini, harga penutupan) yang digunakan untuk memprediksi nilai saat ini. Di sini, p = 1.
-   - d (Integrated Order): Jumlah diferensiasi yang diperlukan untuk membuat data menjadi stasioner. Di sini, d = 1, yang berarti data telah mengalami satu kali diferensiasi.
-   - q (Moving Average Order): Jumlah lag dari kesalahan prediksi sebelumnya yang digunakan dalam model. Di sini, q = 3.
+  - p (AutoRegressive Order): Jumlah lag dari variabel dependen (dalam hal ini, harga penutupan) yang digunakan untuk memprediksi nilai saat ini. Di sini, p = 1.
+  - d (Integrated Order): Jumlah diferensiasi yang diperlukan untuk membuat data menjadi stasioner. Di sini, d = 1, yang berarti data telah mengalami satu kali diferensiasi.
+  - q (Moving Average Order): Jumlah lag dari kesalahan prediksi sebelumnya yang digunakan dalam model. Di sini, q = 3.
 
 - Melatih Model (model_arima_fit = model_arima.fit())
 Model ARIMA yang telah didefinisikan kemudian dilatih menggunakan data latih. Proses ini akan memperkirakan parameter yang terbaik untuk model berdasarkan data yang diberikan.
@@ -189,9 +211,9 @@ Setelah model dilatih, dilakukan prediksi untuk langkah ke depan sesuai dengan p
 #### Parameter yang Digunakan
 - train['Close']: Merupakan data time series yang digunakan untuk melatih model. Dalam konteks ini, ini adalah harga penutupan.
 - order=(1,1,3): Parameter yang menentukan struktur model ARIMA:
-  - p = 1: Satu lag dari harga penutupan yang digunakan untuk memprediksi nilai saat ini.
-  - d = 1: Satu kali diferensiasi untuk mencapai stasionaritas.
-  - q = 3: Tiga lag dari kesalahan untuk memodelkan hubungan kesalahan.
+ - p = 1: Satu lag dari harga penutupan yang digunakan untuk memprediksi nilai saat ini.
+ - d = 1: Satu kali diferensiasi untuk mencapai stasionaritas.
+ - q = 3: Tiga lag dari kesalahan untuk memodelkan hubungan kesalahan.
 - model_arima_fit: Objek dari model ARIMA yang telah dilatih dengan data latih.
 - y_pred_arima: Hasil prediksi dari model ARIMA untuk langkah ke depan berdasarkan data uji.
 #### Kelebihan ARIMA
@@ -219,7 +241,7 @@ Pemilihan parameter yang tepat (p, d, q) bisa menjadi rumit dan memerlukan pemah
 - Sensitivitas terhadap Outlier
 ARIMA dapat menjadi sensitif terhadap outlier dalam data, yang dapat mempengaruhi hasil prediksi.
 
-### 3. LSTM
+### 4. LSTM
 #### Tahapan Proses Pemodelan
 - Persiapan Data
 Data yang digunakan (dalam hal ini adalah harga penutupan, data[['Close']]) diambil dalam bentuk array. Data ini merupakan data time series yang akan diprediksi.
@@ -228,21 +250,21 @@ Data yang digunakan (dalam hal ini adalah harga penutupan, data[['Close']]) diam
 Data di-scaling menggunakan MinMaxScaler untuk membawa nilai ke dalam rentang [0, 1]. Ini penting dalam LSTM untuk mempercepat konvergensi dan menghindari masalah numerik.
 
 - Mempersiapkan Dataset untuk LSTM
-  - Dataset disiapkan dengan menciptakan X_lstm dan y_lstm. Dalam hal ini, untuk setiap 60 nilai sebelumnya dari data terukur, model akan memprediksi nilai selanjutnya. Ini dilakukan dengan loop yang mengisi array dengan data yang sesuai:
-    ```
-    python
-    For i in range(60, len(train_scaled)):
-        X_lstm.append(train_scaled[i-60:i, 0])
-        y_lstm.append(train_scaled[i, 0])
-    ```
-  - Reshape Data: Setelah itu, bentuk data X_lstm diubah agar sesuai dengan input yang diharapkan oleh LSTM, yaitu (samples, time steps, features).
+ - Dataset disiapkan dengan menciptakan X_lstm dan y_lstm. Dalam hal ini, untuk setiap 60 nilai sebelumnya dari data terukur, model akan memprediksi nilai selanjutnya. Ini dilakukan dengan loop yang mengisi array dengan data yang sesuai:
+  ```
+  python
+  For i in range(60, len(train_scaled)):
+    X_lstm.append(train_scaled[i-60:i, 0])
+    y_lstm.append(train_scaled[i, 0])
+  ```
+ - Reshape Data: Setelah itu, bentuk data X_lstm diubah agar sesuai dengan input yang diharapkan oleh LSTM, yaitu (samples, time steps, features).
 
 - Membangun Model LSTM
 Model LSTM dibangun menggunakan Sequential dari Keras. Struktur model adalah sebagai berikut:
-  - LSTM Layer 1: Menambahkan layer LSTM pertama dengan 50 unit dan pengaturan return_sequences=True untuk memungkinkan layer berikutnya menerima output dari layer ini.
-  - LSTM Layer 2: Layer LSTM kedua tanpa pengaturan return_sequences.
-  - Dense Layer 1: Layer Dense dengan 25 unit.
-  - Output Layer: Layer Dense dengan 1 unit untuk menghasilkan prediksi nilai harga penutupan.
+ - LSTM Layer 1: Menambahkan layer LSTM pertama dengan 50 unit dan pengaturan return_sequences=True untuk memungkinkan layer berikutnya menerima output dari layer ini.
+ - LSTM Layer 2: Layer LSTM kedua tanpa pengaturan return_sequences.
+ - Dense Layer 1: Layer Dense dengan 25 unit.
+ - Output Layer: Layer Dense dengan 1 unit untuk menghasilkan prediksi nilai harga penutupan.
 
 - Komplikasi Model (Compile)
 Model dikompilasi dengan menggunakan optimizer Adam dan loss function mean_squared_error untuk mengukur seberapa baik model memprediksi data.
@@ -292,24 +314,23 @@ Meskipun LSTM dapat menangani banyak data, model yang terlalu besar dapat mengal
 ## Evaluation
 ### Metrik yang Digunakan
 1. Mean Squared Error (MSE)
-  - MSE mengukur rata-rata kuadrat perbedaan antara nilai yang diprediksi oleh model dan nilai aktual. Metrik ini memberikan bobot lebih pada kesalahan yang lebih besar, sehingga memberikan gambaran yang lebih jelas tentang seberapa besar kesalahan prediksi.
-  - Mean Squared Error (MSE) dapat dinyatakan dengan rumus:
-    $$
-    \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-    $$
-  - Di mana:
-    - $y_i$ adalah nilai aktual
-    - $\hat{y}_i$ adalah nilai prediksi
+ - MSE mengukur rata-rata kuadrat perbedaan antara nilai yang diprediksi oleh model dan nilai aktual. Metrik ini memberikan bobot lebih pada kesalahan yang lebih besar, sehingga memberikan gambaran yang lebih jelas tentang seberapa besar kesalahan prediksi.
+ - Mean Squared Error (MSE) dapat dinyatakan dengan rumus:
+
+$$\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
+ - Di mana:
+  - $y_i$ adalah nilai aktual
+  - $\hat{y}_i$ adalah nilai prediksi
 
 2. R-squared (R²)
-  - R-squared adalah metrik yang menunjukkan seberapa baik model menjelaskan variasi dalam data. Nilai R² berkisar antara 0 dan 1, di mana nilai yang lebih tinggi menunjukkan bahwa model menjelaskan proporsi yang lebih besar dari variasi data. Nilai negatif menunjukkan bahwa model tidak mampu menjelaskan variabilitas data lebih baik daripada model rata-rata.
-  - R-squared ($R^2$) dapat dihitung dengan rumus:
-        $$
-        R^2 = 1 - \frac{\text{SS}_{\text{res}}}{\text{SS}_{\text{tot}}}
-        $$
-  - Di mana:
-        - $\text{SS}_{\text{res}}$ adalah jumlah kuadrat sisa (residual sum of squares)
-        - $\text{SS}_{\text{tot}}$ adalah jumlah kuadrat total
+ - R-squared adalah metrik yang menunjukkan seberapa baik model menjelaskan variasi dalam data. Nilai R² berkisar antara 0 dan 1, di mana nilai yang lebih tinggi menunjukkan bahwa model menjelaskan proporsi yang lebih besar dari variasi data. Nilai negatif menunjukkan bahwa model tidak mampu menjelaskan variabilitas data lebih baik daripada model rata-rata.
+ - R-squared ($R^2$) dapat dihitung dengan rumus:
+
+      R² = 1 - (SS_res / SS_tot)
+
+ - Di mana:
+  - SS_res adalah jumlah kuadrat sisa (residual sum of squares)
+  - SS_tot adalah jumlah kuadrat total
 
 ### Hasil Proyek Berdasarkan Metrik Evaluasi
 #### Mean Squared Error (MSE)
