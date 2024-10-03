@@ -75,15 +75,15 @@ Untuk memahami data lebih lanjut, beberapa teknik eksplorasi dan visualisasi yan
 #### Visualisasi Data
 
 ##### a. Visualisasi Harga Penutupan
-Pada bagian ini, memuat dataset dan menampilkan grafik harga penutupan saham AAPL.
+Grafik menunjukkan tren harga penutupan saham Apple sejak 1980 hingga 2025. Dari visualisasi ini, terlihat bahwa harga saham Apple mengalami pertumbuhan yang signifikan, terutama setelah tahun 2010. Peningkatan tajam dalam dekade terakhir mencerminkan keberhasilan perusahaan dalam inovasi produk, seperti iPhone, serta pertumbuhan global Apple sebagai raksasa teknologi. Pergerakan harga ini menggambarkan peningkatan nilai pasar Apple dan minat investor yang tinggi.
 ![Grafik Harga Penutupan Saham Apple](img/grafik%20penutupan.png)
 
 ##### b. Distribusi Volume Perdagangan
-Pada bagian ini, memuat dataset dan menampilkan grafik tren distribusi perdagangan saham AAPL.
+Grafik menggambarkan volume perdagangan saham Apple (AAPL) selama periode waktu yang sama. Lonjakan volume perdagangan menandakan adanya aktivitas tinggi dari investor, baik itu berupa pembelian besar-besaran ataupun aksi jual. Lonjakan terbesar mungkin terkait dengan peristiwa besar seperti rilis produk baru, perubahan dalam manajemen, atau kondisi pasar global. Volume perdagangan ini dapat menjadi indikator minat pasar terhadap saham Apple dalam jangka waktu tertentu.
 ![Grafik Volume Perdagangan Saham Apple](img/grafik%20volume.png)
 
 ##### c. Moving Average
-menghitung dan memplot rata-rata bergerak 50 hari dan 200 hari untuk melihat tren jangka pendek dan jangka panjang. Rata-rata bergerak membantu mengidentifikasi arah tren dan mencegah kebingungan akibat fluktuasi jangka pendek. Jika rata-rata bergerak 50 hari melampaui rata-rata 200 hari, ini bisa menunjukkan potensi tren bullish.
+pada bagian ini grafik mengombinasikan harga penutupan saham Apple dengan dua moving averages (rata-rata bergerak) yakni 50-day dan 200-day. Moving averages digunakan untuk melacak tren harga dan memuluskan fluktuasi jangka pendek. Grafik ini menunjukkan bahwa saham Apple memiliki tren bullish yang konsisten, dengan harga penutupan secara berkala berada di atas 50-day dan 200-day moving average, menandakan tren naik yang kuat dalam jangka panjang.
 ![Grafik Rata-rata Pergerakan saham](img/movavg.png)
 
 ## Data Preparation
@@ -365,12 +365,19 @@ Berdasarkan MSE dan R-squared, Linear Regression muncul sebagai model paling efe
 # Grafik hasil prediksi vs aktual
 LSTM
 ![LSTM](img/prediksi%20vs%20aktual%20lstm.png)
+Grafik ini menggunakan model LSTM (Long Short-Term Memory), sebuah jenis jaringan saraf tiruan yang cocok untuk data berurutan. Grafik ini menunjukkan bahwa prediksi LSTM sangat mendekati harga aktual, dengan model yang lebih akurat dalam menangkap fluktuasi harga yang cepat dan pola yang tidak teratur. LSTM tampaknya menjadi model yang lebih unggul dalam memahami pola harga saham yang rumit dibandingkan dengan model prediksi sebelumnya.
+
 
 Linear Regresion
 ![LR](img/prediksi%20vs%20aktual%20lr.png)
+Grafik ini menunjukkan hasil prediksi menggunakan model Linear Regression dibandingkan dengan harga aktual. Hasil prediksi cukup akurat dengan mengikuti tren harga secara keseluruhan. Regresi linear tampak lebih baik dalam mengikuti tren umum kenaikan harga saham Apple. Namun, seperti kebanyakan model linear, ia mungkin tidak sepenuhnya menangkap pergerakan harga yang kompleks dan volatil dalam jangka pendek.
+
 
 ARIMA
 ![ARIMA](img/prediksi%20vs%20aktual%20arima.png)
+Grafik ini membandingkan prediksi harga saham Apple menggunakan model ARIMA (AutoRegressive Integrated Moving Average) dengan harga aktualnya. Model ARIMA tampaknya kurang dapat menangkap fluktuasi harga yang lebih signifikan pada data historis saham Apple, terutama pada periode setelah 2016. Grafik ini menunjukkan bahwa meskipun ARIMA dapat memprediksi tren dasar, model ini mungkin kurang akurat dalam memprediksi pergerakan harga saham yang lebih dinamis dan volatil.
+
 
 Random Forest
 ![RF](img/prediksi%20vs%20aktual%20rf.png)
+Grafik ini menggunakan model Random Forest untuk memprediksi harga saham. Grafik ini menunjukkan bahwa model Random Forest cenderung memprediksi nilai harga yang lebih konservatif, terutama dalam periode awal prediksi. Hal ini mengindikasikan bahwa model ini mungkin memiliki keterbatasan dalam memprediksi lonjakan harga yang tajam atau peristiwa besar yang memengaruhi pasar saham.
