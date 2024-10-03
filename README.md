@@ -94,7 +94,7 @@ data_ml = data[['Close']]
 ```
 2. Bagian kedua adalah menerapkan teknik **Feature Engineering** dengan fungsi `Shift(1)` untuk menggeser kolom `('Close')` kebawah satu baris, yang berari nilai penutupan hari sebelumnya digunakan sebagai fitur dengan kode
 ```
-data_ml.dropna(inplace=True)
+data_ml['Close_shifted'] = data_ml['Close'].shift(1)
 ```
 3. Pada tahap ketiga melakukan pembagian data keladam set pelatihan dan pengujian dengan fungsi `train_test_split` dengan proporsi 80% data latih dan 20% data uji dengan kode
 ```
