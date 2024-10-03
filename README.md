@@ -76,45 +76,45 @@ Untuk memahami data lebih lanjut, beberapa teknik eksplorasi dan visualisasi yan
 
 ##### a. Visualisasi Harga Penutupan
 Grafik menunjukkan tren harga penutupan saham Apple sejak 1980 hingga 2025. Dari visualisasi ini, terlihat bahwa harga saham Apple mengalami pertumbuhan yang signifikan, terutama setelah tahun 2010. Peningkatan tajam dalam dekade terakhir mencerminkan keberhasilan perusahaan dalam inovasi produk, seperti iPhone, serta pertumbuhan global Apple sebagai raksasa teknologi. Pergerakan harga ini menggambarkan peningkatan nilai pasar Apple dan minat investor yang tinggi.
-![Grafik Harga Penutupan Saham Apple](img/grafik%20penutupan.png)
+![Grafik Harga Penutupan Saham Apple](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/grafik%20penutupan.png)
 
 ##### b. Distribusi Volume Perdagangan
 Grafik menggambarkan volume perdagangan saham Apple (AAPL) selama periode waktu yang sama. Lonjakan volume perdagangan menandakan adanya aktivitas tinggi dari investor, baik itu berupa pembelian besar-besaran ataupun aksi jual. Lonjakan terbesar mungkin terkait dengan peristiwa besar seperti rilis produk baru, perubahan dalam manajemen, atau kondisi pasar global. Volume perdagangan ini dapat menjadi indikator minat pasar terhadap saham Apple dalam jangka waktu tertentu.
-![Grafik Volume Perdagangan Saham Apple](img/grafik%20volume.png)
+![Grafik Volume Perdagangan Saham Apple](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/grafik%20volume.png)
 
 ##### c. Moving Average
 pada bagian ini grafik mengombinasikan harga penutupan saham Apple dengan dua moving averages (rata-rata bergerak) yakni 50-day dan 200-day. Moving averages digunakan untuk melacak tren harga dan memuluskan fluktuasi jangka pendek. Grafik ini menunjukkan bahwa saham Apple memiliki tren bullish yang konsisten, dengan harga penutupan secara berkala berada di atas 50-day dan 200-day moving average, menandakan tren naik yang kuat dalam jangka panjang.
-![Grafik Rata-rata Pergerakan saham](img/movavg.png)
+![Grafik Rata-rata Pergerakan saham](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/movavg.png)
 
 ## Data Preparation
 Proses data preparation yang dilakukan dalam proyek ini adalah :
-1. Mengubah kolom 'Date' dari format objek ke format datetime untuk memastikan bahwa model memahami data time series
+1. Bagian pertama adalah bertujuan untuk menyiapkan dataset yang hanya berisi satu kolom, yaitu kolom penutupan saham `('Close')`. Dataset ini memiliki banyak kolom, namun untuk keperluan prediksi harga hanya fokus pada kolom ini demngan kode
 ```
-data['Date'] = pd.to_datetime(data['Date'])
-data.set_index('Date', inplace=True)
+data_ml = data[['Close']]
 ```
-2. Pembuatan fitur baru dengan cara penggeseran harga penutupan (Close_shifted) untuk memberijan informasi historis yang relevan untuk model
+2. Bagian kedua adalah menerapkan teknik **Feature Engineering** dengan fungsi `Shift(1)` untuk menggeser kolom `('Close')` kebawah satu baris, yang berari nilai penutupan hari sebelumnya digunakan sebagai fitur dengan kode
 ```
-data_ml['Close_shifted'] = data_ml['Close'].shift(1)
 data_ml.dropna(inplace=True)
 ```
-3. Membagi dataset untuk pelatihan dan pengujian diperlukan untuk memastikan model dilatih pada data yang sudah ditentukan dan tidak dipakai saat pengujian
+3. Pada tahap ketiga melakukan pembagian data keladam set pelatihan dan pengujian dengan fungsi `train_test_split` dengan proporsi 80% data latih dan 20% data uji dengan kode
 ```
 train, test = train_test_split(data_ml, test_size=0.2, shuffle=False)
 ```
-4. Menggunakan MinMaxScaler untuk menormalisasi data agar semua fitur berada dalam rentang yang seragam
+4. Tahap ke empat memisahkan fitur dan label, dinama fitur(x) dan label(y).
+  - X_train dan X_test: Fitur yang digunakan untuk memprediksi, yaitu harga penutupan dari hari sebelumnya ('Close_shifted').
+  - y_train dan y_test: Label atau target yang akan diprediksi, yaitu harga penutupan hari ini ('Close').
+  
+  dengan memisahkan fitur dan label bertujuan agar supaya model bisa mempelajari hubungan antara hatga sebelumnya dan harga yang akan datang dengan kode
+```
+X_train, y_train = train[['Close_shifted']], train['Close']
+X_test, y_test = test[['Close_shifted']], test['Close']
+```
+
+5. Yang terakhir menggunakan normalasi data dengan MinMaxScaler agar menskalakan data ke rentang antara 0 dan 1, dilakukan untuk mengurangi perbedaan skala yang terlalu besar dengan kode
 ```
 scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
-```
-5. Melakukan ttransformasi kedalam window time series dengan urutan 60 hari untuk LSTM agar model dapat mengenali tren
-```
-for i in range(60, len(train_scaled)):
-    X_lstm.append(train_scaled[i-60:i, 0])
-    y_lstm.append(train_scaled[i, 0])
-X_lstm, y_lstm = np.array(X_lstm), np.array(y_lstm)
-X_lstm = np.reshape(X_lstm, (X_lstm.shape[0], X_lstm.shape[1], 1))
 ```
 
 ## Modeling
@@ -364,20 +364,24 @@ Berdasarkan MSE dan R-squared, Linear Regression muncul sebagai model paling efe
 
 # Grafik hasil prediksi vs aktual
 LSTM
-![LSTM](img/prediksi%20vs%20aktual%20lstm.png)
+![LSTM](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/prediksi%20vs%20aktual%20lstm.png)
 Grafik ini menggunakan model LSTM (Long Short-Term Memory), sebuah jenis jaringan saraf tiruan yang cocok untuk data berurutan. Grafik ini menunjukkan bahwa prediksi LSTM sangat mendekati harga aktual, dengan model yang lebih akurat dalam menangkap fluktuasi harga yang cepat dan pola yang tidak teratur. LSTM tampaknya menjadi model yang lebih unggul dalam memahami pola harga saham yang rumit dibandingkan dengan model prediksi sebelumnya.
 
 
 Linear Regresion
-![LR](img/prediksi%20vs%20aktual%20lr.png)
+![LR](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/prediksi%20vs%20aktual%20lr.png)
 Grafik ini menunjukkan hasil prediksi menggunakan model Linear Regression dibandingkan dengan harga aktual. Hasil prediksi cukup akurat dengan mengikuti tren harga secara keseluruhan. Regresi linear tampak lebih baik dalam mengikuti tren umum kenaikan harga saham Apple. Namun, seperti kebanyakan model linear, ia mungkin tidak sepenuhnya menangkap pergerakan harga yang kompleks dan volatil dalam jangka pendek.
 
 
 ARIMA
-![ARIMA](img/prediksi%20vs%20aktual%20arima.png)
+![ARIMA](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/prediksi%20vs%20aktual%20arima.png)
 Grafik ini membandingkan prediksi harga saham Apple menggunakan model ARIMA (AutoRegressive Integrated Moving Average) dengan harga aktualnya. Model ARIMA tampaknya kurang dapat menangkap fluktuasi harga yang lebih signifikan pada data historis saham Apple, terutama pada periode setelah 2016. Grafik ini menunjukkan bahwa meskipun ARIMA dapat memprediksi tren dasar, model ini mungkin kurang akurat dalam memprediksi pergerakan harga saham yang lebih dinamis dan volatil.
 
 
 Random Forest
-![RF](img/prediksi%20vs%20aktual%20rf.png)
+![RF](https://github.com/dwikrisnandi/AAPL_Prediksi/raw/master/img/prediksi%20vs%20aktual%20rf.png)
 Grafik ini menggunakan model Random Forest untuk memprediksi harga saham. Grafik ini menunjukkan bahwa model Random Forest cenderung memprediksi nilai harga yang lebih konservatif, terutama dalam periode awal prediksi. Hal ini mengindikasikan bahwa model ini mungkin memiliki keterbatasan dalam memprediksi lonjakan harga yang tajam atau peristiwa besar yang memengaruhi pasar saham.
+
+
+## Penutup
+Sebagai penutup, model prediksi saham yang dikembangkan telah terbukti mampu menjawab kebutuhan investor akan informasi yang lebih akurat dan andal dalam menghadapi volatilitas pasar. Keberhasilan model dalam mencapai tujuan dan memberikan dampak nyata terhadap pengambilan keputusan investasi menunjukkan potensi besar dari penerapan teknologi machine learning dalam sektor keuangan. Ke depannya, peningkatan dan adaptasi model untuk kondisi pasar yang berbeda akan semakin memaksimalkan manfaatnya, membantu investor dalam mengelola risiko dan mengambil keputusan yang lebih tepat.
